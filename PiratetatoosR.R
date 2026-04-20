@@ -12,12 +12,14 @@ pirates |>
     )
   ) |> # group pirate ages into ranges
   ggplot(aes(x = age_range, y = tattoos)) +
-  geom_boxplot() + # compare tattoo counts across age groups
+  geom_jitter(width = 0.2, alpha = 0.6, size = 3) + # scatter plot with jitter to avoid overplotting
+  stat_summary(fun = "mean", geom = "point", color = "red", size = 4) +
+  stat_summary(fun = "mean", geom = "line", aes(group = 1), color = "red", linetype = "dashed") +
   labs(
     title = "Number of Tattoos Across Pirate Age Ranges",
     x = "Age Range",
-    y = "Number of Tattoos"
+    y = "Number of Tattoos",
+    caption = "Red dashed line represents mean tattoo count per age group"
   )
 
 summary(pirates$age)
-
